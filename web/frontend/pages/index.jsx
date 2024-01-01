@@ -14,6 +14,7 @@ import { useTranslation, Trans } from "react-i18next";
 import { trophyImage } from "../assets";
 
 import { ProductsCard } from "../components";
+import {ReviewImportFormCard} from "../components/ReviewImportFormCard.jsx";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -83,9 +84,12 @@ export default function HomePage() {
               </Stack.Item>
             </Stack>
           </Card>
-        </Layout.Section>
+        </Layout.Section>{/*
         <Layout.Section>
           <ProductsCard />
+        </Layout.Section>*/}
+        <Layout.Section>
+          <ReviewImportFormCard />
         </Layout.Section>
       </Layout>
     </Page>

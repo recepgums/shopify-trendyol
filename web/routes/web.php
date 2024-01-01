@@ -18,23 +18,10 @@ use Shopify\Exception\InvalidWebhookException;
 use Shopify\Utils;
 use Shopify\Webhooks\Registry;
 use Shopify\Webhooks\Topics;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-| If you are adding routes outside of the /api path, remember to also add a
-| proxy rule for them in web/frontend/vite.config.js
-|
-*/
+use App\Http\Controllers;
 
 Route::fallback(function (Request $request) {
-    if (Context::$IS_EMBEDDED_APP &&  $request->query("embedded", false) === "1") {
+    if (Context::$IS_EMBEDDED_APP && $request->query("embedded", false) === "1") {
         if (env('APP_ENV') === 'production') {
             return file_get_contents(public_path('index.html'));
         } else {
@@ -70,7 +57,7 @@ Route::get('/api/auth/callback', function (Request $request) {
     } else {
         Log::error(
             "Failed to register APP_UNINSTALLED webhook for shop $shop with response body: " .
-                print_r($response->getBody(), true)
+            print_r($response->getBody(), true)
         );
     }
 
@@ -85,6 +72,16 @@ Route::get('/api/auth/callback', function (Request $request) {
 
     return redirect($redirectUrl);
 });
+
+Route::get('/api/products', function (Request $request) {
+    /** @var AuthSession */
+    $session = $request->get('shopifySession'); // Provided by the shopify.auth middleware, guaranteed to be active
+
+    $client = new Rest($session->getShop(), $session->getAccessToken());
+    $result = $client->get('products');
+
+    return response($result->getDecodedBody());
+})->middleware('shopify.auth');
 
 Route::get('/api/products/count', function (Request $request) {
     /** @var AuthSession */
@@ -143,3 +140,4 @@ Route::post('/api/webhooks', function (Request $request) {
         return response()->json(['message' => "Got an exception when handling '$topic' webhook"], 500);
     }
 });
+

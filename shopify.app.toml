@@ -2,7 +2,7 @@
 
 name = "trendyol-yorum"
 client_id = "dd67aa743351107e5ce305cbce8fdc0c"
-application_url = "https://flexible-collected-hide-conversations.trycloudflare.com"
+application_url = "https://organ-continued-sewing-chance.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://flexible-collected-hide-conversations.trycloudflare.com/auth/callback",
-  "https://flexible-collected-hide-conversations.trycloudflare.com/auth/shopify/callback",
-  "https://flexible-collected-hide-conversations.trycloudflare.com/api/auth/callback"
+  "https://organ-continued-sewing-chance.trycloudflare.com/auth/callback",
+  "https://organ-continued-sewing-chance.trycloudflare.com/auth/shopify/callback",
+  "https://organ-continued-sewing-chance.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
